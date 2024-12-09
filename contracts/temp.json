@@ -1,0 +1,3 @@
+{"owner_id": "rockingg.testnet","assets": [{"name": "ETH","contract_address": "0x2e5221B0f855Be4ea5Cefffb8311EED0563B6e87","weight": 70},{"name": "AURORA","contract_address": "0xe09D8aDae1141181f4CddddeF97E4Cf68f5436E6","weight": 30}],"usdc_contract": "usdc.fakes.testnet","oracle_contract": "price-oracle.testnet"}
+
+
