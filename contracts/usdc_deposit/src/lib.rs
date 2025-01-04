@@ -32,9 +32,14 @@ impl Contract {
     }
 
     // Users bid by transferring FT tokens
-    pub fn ft_on_transfer(&mut self, _sender_id: AccountId, amount: U128, _msg: String) -> U128 {
+    pub fn ft_on_transfer(&mut self, sender_id: AccountId, amount: U128, msg: String) -> U128 {
         let ft = env::predecessor_account_id();
-        require!(ft == self.ft_contract, "The token is not supported");
+        // require!(ft == self.ft_contract, "The token is not supported");
+        env::log_str(&format!("Received {} ", ft));
+
+
+        env::log_str(&format!("Received {} USDC from {}", amount.0, sender_id));
+        env::log_str(&format!("Previous balance: {}", self.usdc_balance.0));
     
         self.usdc_balance = U128(self.usdc_balance.0 + amount.0);
         U128(0)
@@ -50,6 +55,14 @@ impl Contract {
 
     pub fn get_usdc_balance(&self) -> U128 {
         self.usdc_balance.clone()
+    }
+
+    pub fn get_contract_info(&self) -> (AccountId, AccountId, U128) {
+        (
+            self.owner.clone(),
+            self.ft_contract.clone(),
+            self.usdc_balance.clone()
+        )
     }
 }
 
