@@ -1,37 +1,7 @@
-# simple_usdc
+# How to run
 
-cargo-near-new-project-description
-
-## How to Build Locally?
-
-Install [`cargo-near`](https://github.com/near/cargo-near) and run:
-
-```bash
-cargo near build
-```
-
-## How to Test Locally?
-
-```bash
-cargo test
-```
-
-## How to Deploy?
-
-Deployment is automated with GitHub Actions CI/CD pipeline.
-To deploy manually, install [`cargo-near`](https://github.com/near/cargo-near) and run:
-
-```bash
-cargo near deploy <account-id>
-```
-
-## Useful Links
-
-- [cargo-near](https://github.com/near/cargo-near) - NEAR smart contract development toolkit for Rust
-- [near CLI](https://near.cli.rs) - Interact with NEAR blockchain from command line
-- [NEAR Rust SDK Documentation](https://docs.near.org/sdk/rust/introduction)
-- [NEAR Documentation](https://docs.near.org)
-- [NEAR StackOverflow](https://stackoverflow.com/questions/tagged/nearprotocol)
-- [NEAR Discord](https://near.chat)
-- [NEAR Telegram Developers Community Group](https://t.me/neardev)
-- NEAR DevHub: [Telegram](https://t.me/neardevhub), [Twitter](https://twitter.com/neardevhub)
+1. `cargo near build` - Build the contract itself.
+2. `near create-account testing-usdc-6.testnet --useFaucet` - Use any other accountId to create a new testnet account which can be used to deploy the contract.
+3. To deploy the contract `cargo near deploy build-non-reproducible-wasm <contract-id> with-init-call init json-args '{ "owner": "<your-account>", "ft_contract": "3e2210e1184b45b64c8a434c0a7e7b23cc04ea7eb7a6c3c32520d03d4afcb8af"}' prepaid-gas '100.0 Tgas' attached-deposit '0 NEAR' network-config testnet sign-with-keychain send` to deploy the contract.
+4. To make a FT transfer `near call 3e2210e1184b45b64c8a434c0a7e7b23cc04ea7eb7a6c3c32520d03d4afcb8af ft_transfer_call '{"receiver_id": "<contractId>", "amount": "1000", "msg": ""}' --depositYocto 1 --accountId <your-account> --gas 100000000000000`
+5. Check balance using `near view <contractId> get_usdc_balance`
