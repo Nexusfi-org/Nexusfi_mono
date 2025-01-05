@@ -115,7 +115,10 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             <h3 className="text-base font-medium mb-4">Token Composition</h3>
             <div className="grid gap-4">
               {symbols.map((symbol, symbolKey) => (
-                <div className="p-4 border border-[#151515] rounded-lg">
+                <div
+                  key={symbolKey}
+                  className="p-4 border border-[#151515] rounded-lg"
+                >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                       <img

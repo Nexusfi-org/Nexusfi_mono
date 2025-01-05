@@ -2,7 +2,7 @@
 import { Index } from "@/types";
 import { useEffect, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, Loader2 } from "lucide-react";
-import { getIndexAPR, getIndexChange } from "@/lib/getStats";
+import { getAnnualChange, getIndexChange } from "@/lib/getStats";
 
 interface CardProps {
   index: Index;
@@ -10,17 +10,17 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ index }) => {
   const [priceChange, setPriceChange] = useState<number | null>(null);
-  const [apr, setAPR] = useState<number | null>(null);
+  const [annualChange, setAnnualChange] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
 
   const getStats = async () => {
     try {
       const [changeValue, aprValue] = await Promise.all([
         getIndexChange(index.symbols),
-        getIndexAPR(index.symbols),
+        getAnnualChange(index.symbols),
       ]);
       setPriceChange(changeValue);
-      setAPR(aprValue);
+      setAnnualChange(aprValue);
     } catch (error) {
       console.error("Error fetching stats:", error);
     } finally {
@@ -76,12 +76,12 @@ export const Card: React.FC<CardProps> = ({ index }) => {
       );
     }
 
-    if (apr === null) {
+    if (annualChange === null) {
       return <span className="text-gray-500">-</span>;
     }
 
-    const isPositive = apr >= 0;
-    const absoluteAPR = Math.abs(apr);
+    const isPositive = annualChange >= 0;
+    const absoluteAPR = Math.abs(annualChange);
 
     return (
       <div
@@ -101,7 +101,7 @@ export const Card: React.FC<CardProps> = ({ index }) => {
           {index.symbols.map((symbol) => symbol.symbol).join("-")}
         </h2>
         <div className="flex items-center gap-2">
-          <span className="text-sm opacity-50">APR:</span>
+          <span className="text-sm opacity-50">Annual Change:</span>
           {renderAPR()}
         </div>
       </div>
