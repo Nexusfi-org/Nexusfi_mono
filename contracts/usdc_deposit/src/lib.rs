@@ -34,7 +34,7 @@ impl Contract {
     // Users bid by transferring FT tokens
     pub fn ft_on_transfer(&mut self, sender_id: AccountId, amount: U128, msg: String) -> U128 {
         let ft = env::predecessor_account_id();
-        // require!(ft == self.ft_contract, "The token is not supported");
+        require!(ft == self.ft_contract, "The token is not supported");
         env::log_str(&format!("Received {} ", ft));
 
 
