@@ -1,6 +1,6 @@
 use serde_json::json;
 use near_workspaces;
-use indexes::Fund;
+use indexes::AllocationTarget;
 
 
 #[tokio::test]
@@ -15,7 +15,7 @@ async fn test_basics_on(contract_wasm: &[u8]) -> Result<(), Box<dyn std::error::
     let contract = sandbox.dev_deploy(contract_wasm).await?;
     let user_account = sandbox.dev_create_account().await?;
 
-    let funds = vec![
+    let allocation_targets = vec![
         json!({
             "address": "fund1.near",
             "ratio": 60
@@ -30,17 +30,17 @@ async fn test_basics_on(contract_wasm: &[u8]) -> Result<(), Box<dyn std::error::
         .call(contract.id(), "init")
         .args_json(json!({
             "name": "Test Index",
-            "funds": funds
+            "allocation_targets": allocation_targets
         }))
         .transact()
         .await?;
     assert!(outcome.is_success());
 
     let info = contract.view("get_info").args_json(json!({})).await?;
-    let (name, funds_vec): (String, Vec<Fund>) = info.json()?;
+    let (name, allocation_targets_vector): (String, Vec<AllocationTarget>) = info.json()?;
     
     assert_eq!(name, "Test Index");
-    assert_eq!(funds_vec.len(), 2);
+    assert_eq!(allocation_targets_vector.len(), 2);
 
     Ok(())
 }
