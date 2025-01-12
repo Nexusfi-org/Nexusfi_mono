@@ -5,8 +5,16 @@ use crate::{Contract, ContractExt, NEAR_PER_STORAGE, NO_DEPOSIT, TGAS};
 
 #[derive(Serialize)]
 #[serde(crate = "near_sdk::serde")]
-struct DonationInitArgs {
-    beneficiary: AccountId,
+struct IndexInitArgs {
+    name: String,
+    allocation_targets: Vec<AllocationTarget>,
+}
+
+#[near(serializers = [json, borsh])]
+#[derive(Clone, Debug)]
+pub struct AllocationTarget {
+    pub address: String,
+    pub ratio: u32,
 }
 
 #[near]
@@ -15,7 +23,7 @@ impl Contract {
     pub fn create_factory_subaccount_and_deploy(
         &mut self,
         name: String,
-        beneficiary: AccountId,
+        allocation_targets: Vec<AllocationTarget>,
         public_key: Option<PublicKey>,
     ) -> Promise {
         // Assert the sub-account is valid
@@ -39,7 +47,11 @@ impl Contract {
             "Attach at least {minimum_needed} yⓃ"
         );
 
-        let init_args = near_sdk::serde_json::to_vec(&DonationInitArgs { beneficiary }).unwrap();
+        let init_args = near_sdk::serde_json::to_vec(&IndexInitArgs {
+            name: name.clone(),
+            allocation_targets,
+        })
+        .unwrap();
 
         let mut promise = Promise::new(subaccount.clone())
             .create_account()
