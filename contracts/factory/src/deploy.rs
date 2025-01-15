@@ -1,9 +1,9 @@
-use near_sdk::serde::Serialize;
+use near_sdk::serde::{ Serialize, Deserialize};
 use near_sdk::{env, log, near, AccountId, NearToken, Promise, PromiseError, PublicKey};
 
 use crate::{Contract, ContractExt, NEAR_PER_STORAGE, NO_DEPOSIT, TGAS};
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 #[serde(crate = "near_sdk::serde")]
 struct IndexInitArgs {
     name: String,
