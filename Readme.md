@@ -8,11 +8,10 @@ By leveraging the advanced capabilities of NEAR’s chain signatures, NexusFi pr
 
 ## Main Features
 
-1. Unified Multi-Chain Control:  Harness NEAR’s advanced blockchain technology to manage Ethereum and EVM-compatible assets directly from a single NEAR account.
+1. Unified Multi-Chain Control: Harness NEAR’s advanced blockchain technology to manage Ethereum and EVM-compatible assets directly from a single NEAR account.
 2. Dynamic Index Fund Creation: Create and invest in both predefined and user-defined index funds with customizable asset weightings.
 3. Transparent Asset Allocation: Ensure accurate and transparent balance tracking for each underlying token. Users retain full ownership.
 4. Built for Decentralization: Rely on robust, transparent smart contracts to manage user funds and transactions.
-
 
 ## Milestones for the project.
 
@@ -22,6 +21,26 @@ By leveraging the advanced capabilities of NEAR’s chain signatures, NexusFi pr
 
 ## Contract Roadmap in plan
 
+## Frontend Roadmap in plan
 
+1. **Create a New Index Page**
 
-    
+   - Display fund details, asset allocations (charts), and performance metrics.
+   - Add options for users to invest, withdraw.
+
+2. **Add Historical Price Graph**
+
+   - Implement a line/area chart to track combined token prices over time.
+
+3. **Metadata Fields for Fund Creators**
+
+   - Allow creators to add descriptions, themes, risk levels, and goals for their funds.
+
+4. **Staking and Liquidity Pool Integration**
+
+   - Enable users to stake FTs or provide liquidity to pools or invest in other similar yield generating instruments.
+   - Show staking rewards, pool metrics, and APY directly within the fund details.
+
+5. **Show Analytical Information**
+   - Include metrics like ROI, volatility, Sharpe ratio, and historical performance comparisons.
+   - Display risk factors and fund growth insights.
