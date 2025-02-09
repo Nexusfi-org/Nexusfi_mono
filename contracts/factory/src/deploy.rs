@@ -17,6 +17,15 @@ pub struct AllocationTarget {
     pub ratio: u32,
 }
 
+#[derive(Serialize)]
+#[serde(crate = "near_sdk::serde")]
+struct SubcontractDeployedEvent<'a> {
+    subaccount_id: &'a AccountId,
+    creator: &'a AccountId,
+    name: &'a String,
+    allocation_targets: &'a Vec<AllocationTarget>,
+}
+
 #[near]
 impl Contract {
     #[payable]
@@ -49,7 +58,7 @@ impl Contract {
 
         let init_args = near_sdk::serde_json::to_vec(&IndexInitArgs {
             name: name.clone(),
-            allocation_targets,
+            allocation_targets: allocation_targets.clone(),
         })
         .unwrap();
 
@@ -69,6 +78,16 @@ impl Contract {
             promise = promise.add_full_access_key(pk);
         }
 
+        let subaccount_id: AccountId = format!("{name}.{}", env::current_account_id()).parse().unwrap();
+        let event = SubcontractDeployedEvent {
+            subaccount_id: &subaccount_id,
+            creator: &env::predecessor_account_id(),
+            name: &name,
+            allocation_targets: &allocation_targets,
+        };
+
+        log!("EVENT_JSON:{}", near_sdk::serde_json::to_string(&event).unwrap());
+        
         // Add callback
         promise.then(
             Self::ext(env::current_account_id()).create_factory_subaccount_and_deploy_callback(

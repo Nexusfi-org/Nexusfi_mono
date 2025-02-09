@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
-import path from "path";
 
 import { dbConfig } from './config/database';
 import { apiConfig } from './config/api';
 import { ApiService } from './services/api.service';
 import { DbService } from './services/db.service';
 import { logger } from './utils/logger';
+
 
 class Indexer {
     private apiService: ApiService;

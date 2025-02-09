@@ -1,0 +1,20 @@
+type AllocationTarget @entity {
+  id: ID!
+  address: String!
+  ratio: Int!
+  subcontract: Subcontract!
+}
+
+type Subcontract @entity {
+  id: ID!
+  name: String!
+  creator: Creator!
+  deployedAt: BigInt!
+  allocationTargets: [AllocationTarget!]! @derivedFrom(field: "subcontract")
+}
+
+type Creator @entity {
+  id: ID!
+  subcontracts: [Subcontract!]! @derivedFrom(field: "creator")
+  totalDeployments: Int!
+}
