@@ -7,7 +7,7 @@ dataSources:
     network: near-testnet
     source:
       account: factory-contract-2.testnet
-      startBlock: 1234567
+      startBlock: 187080565
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript

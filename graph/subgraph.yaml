@@ -7,7 +7,7 @@ dataSources:
     network: near-testnet  # or near-mainnet for production
     source:
       account: "factory-contract-2.testnet"  # Replace with your contract address
-      startBlock: 1234567  # Replace with your contract deployment block
+      startBlock: 187080565  # Replace with your contract deployment block
     mapping:
       apiVersion: 0.0.6
       language: wasm/assemblyscript
